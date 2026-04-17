@@ -1,71 +1,112 @@
 [
   {
-    "section_title": "Introduction to Motion",
-    "core_concept": "Motion is defined as the change in position of an object with time. In kinematics, motion is described without considering its causes, focusing on quantities like velocity and acceleration. For simplicity, objects are often treated as point masses when their size is negligible compared to the distance traveled.",
-    "formulas": [],
-    "key_terms": ["motion", "kinematics", "rectilinear", "point object", "straight line"]
+    "topic": "Introduction to Motion",
+    "page": 1,
+    "keywords": ["what is motion", "definition of motion", "rectilinear motion", "straight line motion", "kinematics", "point object", "position change with time", "causes of motion"]
   },
   {
-    "section_title": "Instantaneous Velocity and Speed",
-    "core_concept": "Instantaneous velocity is the rate of change of position at a specific instant and is obtained as the limit of average velocity as time interval approaches zero. Speed is the magnitude of velocity and is always non-negative.",
-    "formulas": [
-      "v = lim(Δt→0) (Δx/Δt)",
-      "v = dx/dt"
-    ],
-    "key_terms": ["velocity", "instantaneous", "average velocity", "speed", "slope", "x-t graph"]
+    "topic": "Instantaneous Velocity and Speed",
+    "page": 2,
+    "keywords": ["instantaneous velocity", "velocity at an instant", "how fast at a point", "limit of average velocity", "dx/dt", "slope of position-time graph", "differential calculus velocity", "speed vs velocity"]
   },
   {
-    "section_title": "Acceleration",
-    "core_concept": "Acceleration is the rate of change of velocity with time. It can result from changes in speed, direction, or both. Like velocity, acceleration can be positive, negative, or zero depending on the motion.",
-    "formulas": [
-      "a = Δv/Δt",
-      "a = dv/dt"
-    ],
-    "key_terms": ["acceleration", "average acceleration", "instantaneous acceleration", "v-t graph", "slope"]
+    "topic": "Calculating Instantaneous Velocity Numerically",
+    "page": 3,
+    "keywords": ["limiting value of delta x over delta t", "average velocity table", "velocity at t=4s", "numerical method velocity", "x = 0.08t cubed", "approaching limit", "velocity calculation example"]
   },
   {
-    "section_title": "Graphs in Motion",
-    "core_concept": "Graphs provide a visual representation of motion. The slope of position-time graph gives velocity, while slope of velocity-time graph gives acceleration. The area under a velocity-time graph represents displacement.",
-    "formulas": [
-      "Displacement = Area under v-t graph"
-    ],
-    "key_terms": ["x-t graph", "v-t graph", "a-t graph", "area under curve", "slope", "graph"]
+    "topic": "Acceleration",
+    "page": 3,
+    "keywords": ["what is acceleration", "rate of change of velocity", "average acceleration formula", "speeding up slowing down", "SI unit of acceleration", "m/s squared", "velocity time graph slope", "Galileo acceleration"]
   },
   {
-    "section_title": "Kinematic Equations for Uniform Acceleration",
-    "core_concept": "For motion with constant acceleration, a set of equations relates displacement, velocity, acceleration, and time. These equations simplify the analysis of motion without needing calculus.",
-    "formulas": [
-      "v = v0 + at",
-      "x = v0 t + (1/2) a t^2",
-      "v^2 = v0^2 + 2ax",
-      "x = ((v + v0)/2) t"
-    ],
-    "key_terms": ["uniform acceleration", "kinematic equations", "initial velocity", "final velocity", "displacement"]
+    "topic": "Instantaneous Acceleration",
+    "page": 4,
+    "keywords": ["instantaneous acceleration", "slope of v-t graph", "dv/dt", "acceleration at an instant", "positive negative zero acceleration", "velocity time graph", "constant acceleration motion"]
   },
   {
-    "section_title": "Free Fall Motion",
-    "core_concept": "Free fall is the motion of an object under the influence of gravity alone, neglecting air resistance. It is a case of uniformly accelerated motion with acceleration equal to g directed downward.",
-    "formulas": [
-      "v = -gt",
-      "y = -(1/2)gt^2",
-      "v^2 = -2gy"
-    ],
-    "key_terms": ["free fall", "gravity", "9.8", "downward", "air resistance"]
+    "topic": "Velocity-Time Graphs for Constant Acceleration",
+    "page": 4,
+    "keywords": ["v-t graph shapes", "positive acceleration graph", "negative acceleration graph", "area under v-t curve", "displacement from graph", "object changing direction", "uniform acceleration graph"]
   },
   {
-    "section_title": "Stopping Distance and Applications",
-    "core_concept": "Stopping distance is the distance a vehicle travels before coming to rest after brakes are applied. It depends on the initial velocity and deceleration, showing a quadratic relationship with velocity.",
-    "formulas": [
-      "d = - (v0^2) / (2a)"
-    ],
-    "key_terms": ["stopping distance", "deceleration", "brakes", "quadratic", "rest"]
+    "topic": "Area Under Velocity-Time Curve",
+    "page": 5,
+    "keywords": ["area under v-t curve equals displacement", "how to find displacement from graph", "rectangle area velocity graph", "distance from speed-time graph", "v-t graph and displacement"]
   },
   {
-    "section_title": "Reaction Time",
-    "core_concept": "Reaction time is the delay between observing a situation and responding to it. During this time, objects continue to move, and their motion can be analyzed using free fall equations.",
-    "formulas": [
-      "d = (1/2) g t^2"
-    ],
-    "key_terms": ["reaction time", "delay", "response", "stimulus", "human error"]
+    "topic": "Kinematic Equations for Uniformly Accelerated Motion",
+    "page": 5,
+    "keywords": ["equations of motion", "v = v0 + at", "x = v0t + half at squared", "v squared = v0 squared + 2ax", "kinematic equations", "uniform acceleration formulas", "suvat equations", "five quantities of motion"]
+  },
+  {
+    "topic": "Derivation of Kinematic Equations",
+    "page": 6,
+    "keywords": ["derive equations of motion", "calculus method kinematics", "integrate acceleration", "proof of v = u + at", "derivation using integration", "non-uniform acceleration method", "general kinematic equations"]
+  },
+  {
+    "topic": "Example: Ball Thrown Vertically Upwards",
+    "page": 6,
+    "keywords": ["ball thrown upward problem", "maximum height of ball", "time to hit ground", "projectile from building", "vertical motion example", "g = 10 m/s squared", "upward throw calculation", "25 m building problem"]
+  },
+  {
+    "topic": "Solving Vertical Motion Problems",
+    "page": 7,
+    "keywords": ["two methods for vertical motion", "split path upward downward", "quadratic equation motion", "time of flight", "ball hits ground time", "kinematic equation application", "t1 + t2 total time"]
+  },
+  {
+    "topic": "Free Fall Motion",
+    "page": 7,
+    "keywords": ["free fall", "object falling under gravity", "acceleration due to gravity", "g = 9.8 m/s squared", "neglect air resistance", "free fall equations", "y = half g t squared", "uniform acceleration free fall"]
+  },
+  {
+    "topic": "Graphs of Free Fall Motion",
+    "page": 8,
+    "keywords": ["free fall graph", "acceleration vs time graph", "velocity vs time free fall", "distance vs time free fall", "variation of velocity with time", "parabolic distance graph", "constant acceleration graph"]
+  },
+  {
+    "topic": "Galileo's Law of Odd Numbers",
+    "page": 8,
+    "keywords": ["Galileo law of odd numbers", "distances in free fall ratio", "1:3:5:7 distances", "equal time intervals free fall", "successive distances falling body", "Galileo Galilei", "prove odd number law"]
+  },
+  {
+    "topic": "Stopping Distance of Vehicles",
+    "page": 8,
+    "keywords": ["stopping distance formula", "braking distance", "ds = v0 squared over 2a", "stopping distance proportional to square of velocity", "deceleration braking", "road safety physics", "doubling speed quadruples stopping distance"]
+  },
+  {
+    "topic": "Reaction Time",
+    "page": 9,
+    "keywords": ["reaction time", "how to measure reaction time", "ruler drop experiment", "time to respond", "tr = sqrt(2d/g)", "d = 21 cm reaction time", "human response time physics"]
+  },
+  {
+    "topic": "Summary of Chapter 2",
+    "page": 9,
+    "keywords": ["chapter 2 summary", "key formulas motion", "instantaneous velocity definition", "rectilinear motion summary", "motion in straight line revision", "all formulas kinematics", "quick review motion"]
+  },
+  {
+    "topic": "Summary: Kinematic Equations Reference",
+    "page": 10,
+    "keywords": ["kinematic equations summary", "v = v0 + at summary", "displacement formula summary", "v squared formula", "area under v-t curve summary", "uniformly accelerated motion recap", "physical quantities table"]
+  },
+  {
+    "topic": "Points to Ponder",
+    "page": 11,
+    "keywords": ["common misconceptions motion", "sign of acceleration meaning", "zero velocity non-zero acceleration", "positive acceleration speeding up misconception", "direction of acceleration", "axis choice sign convention", "tricky concepts kinematics"]
+  },
+  {
+    "topic": "Exercises: Motion Concepts (Q2.1–Q2.7)",
+    "page": 12,
+    "keywords": ["point object examples", "x-t graph two children", "position time graph exercise", "drunkard walk problem", "stopping distance exercise", "ball thrown upward exercise", "true or false motion statements"]
+  },
+  {
+    "topic": "Exercises: Graphs and Applied Problems (Q2.8–Q2.14)",
+    "page": 13,
+    "keywords": ["ball dropped speed-time graph", "displacement vs distance exercise", "average speed vs average velocity", "police van bullet relative speed", "x-t graph interpretation", "simple harmonic motion graph signs", "relative velocity exercise"]
+  },
+  {
+    "topic": "Exercises: Graph Interpretation (Q2.15–Q2.18)",
+    "page": 14,
+    "keywords": ["x-t graph physical situation", "simple harmonic motion signs", "average speed greatest interval", "speed-time graph acceleration", "sign of velocity acceleration intervals", "graph analysis kinematics", "interpreting motion graphs"]
   }
 ]
