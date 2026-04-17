@@ -1,0 +1,71 @@
+[
+  {
+    "section_title": "Introduction to Motion",
+    "core_concept": "Motion is defined as the change in position of an object with time. In kinematics, motion is described without considering its causes, focusing on quantities like velocity and acceleration. For simplicity, objects are often treated as point masses when their size is negligible compared to the distance traveled.",
+    "formulas": [],
+    "key_terms": ["motion", "kinematics", "rectilinear", "point object", "straight line"]
+  },
+  {
+    "section_title": "Instantaneous Velocity and Speed",
+    "core_concept": "Instantaneous velocity is the rate of change of position at a specific instant and is obtained as the limit of average velocity as time interval approaches zero. Speed is the magnitude of velocity and is always non-negative.",
+    "formulas": [
+      "v = lim(Δt→0) (Δx/Δt)",
+      "v = dx/dt"
+    ],
+    "key_terms": ["velocity", "instantaneous", "average velocity", "speed", "slope", "x-t graph"]
+  },
+  {
+    "section_title": "Acceleration",
+    "core_concept": "Acceleration is the rate of change of velocity with time. It can result from changes in speed, direction, or both. Like velocity, acceleration can be positive, negative, or zero depending on the motion.",
+    "formulas": [
+      "a = Δv/Δt",
+      "a = dv/dt"
+    ],
+    "key_terms": ["acceleration", "average acceleration", "instantaneous acceleration", "v-t graph", "slope"]
+  },
+  {
+    "section_title": "Graphs in Motion",
+    "core_concept": "Graphs provide a visual representation of motion. The slope of position-time graph gives velocity, while slope of velocity-time graph gives acceleration. The area under a velocity-time graph represents displacement.",
+    "formulas": [
+      "Displacement = Area under v-t graph"
+    ],
+    "key_terms": ["x-t graph", "v-t graph", "a-t graph", "area under curve", "slope", "graph"]
+  },
+  {
+    "section_title": "Kinematic Equations for Uniform Acceleration",
+    "core_concept": "For motion with constant acceleration, a set of equations relates displacement, velocity, acceleration, and time. These equations simplify the analysis of motion without needing calculus.",
+    "formulas": [
+      "v = v0 + at",
+      "x = v0 t + (1/2) a t^2",
+      "v^2 = v0^2 + 2ax",
+      "x = ((v + v0)/2) t"
+    ],
+    "key_terms": ["uniform acceleration", "kinematic equations", "initial velocity", "final velocity", "displacement"]
+  },
+  {
+    "section_title": "Free Fall Motion",
+    "core_concept": "Free fall is the motion of an object under the influence of gravity alone, neglecting air resistance. It is a case of uniformly accelerated motion with acceleration equal to g directed downward.",
+    "formulas": [
+      "v = -gt",
+      "y = -(1/2)gt^2",
+      "v^2 = -2gy"
+    ],
+    "key_terms": ["free fall", "gravity", "9.8", "downward", "air resistance"]
+  },
+  {
+    "section_title": "Stopping Distance and Applications",
+    "core_concept": "Stopping distance is the distance a vehicle travels before coming to rest after brakes are applied. It depends on the initial velocity and deceleration, showing a quadratic relationship with velocity.",
+    "formulas": [
+      "d = - (v0^2) / (2a)"
+    ],
+    "key_terms": ["stopping distance", "deceleration", "brakes", "quadratic", "rest"]
+  },
+  {
+    "section_title": "Reaction Time",
+    "core_concept": "Reaction time is the delay between observing a situation and responding to it. During this time, objects continue to move, and their motion can be analyzed using free fall equations.",
+    "formulas": [
+      "d = (1/2) g t^2"
+    ],
+    "key_terms": ["reaction time", "delay", "response", "stimulus", "human error"]
+  }
+]

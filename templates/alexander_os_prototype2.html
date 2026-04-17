@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alexander OS // Engine</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root { --bg: #000; --panel: #0a0a0a; --accent: #0070f3; --text: #eaeaea; --border: #222; }
+        body, html { height: 100%; margin: 0; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
+        
+        .app-shell { display: flex; height: 100vh; width: 100vw; }
+        .chat-view { flex: 1; display: flex; flex-direction: column; transition: all 0.5s ease; }
+        
+        #pdf-sidebar { 
+            width: 0; background: #000; border-left: 1px solid var(--border);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        #pdf-sidebar.active { width: 50%; }
+
+        header { padding: 1rem 2rem; border-bottom: 1px solid var(--border); }
+        header h1 { margin:0; font-size:0.7rem; letter-spacing:2px; color:#555; }
+
+        #chat-window { flex-grow: 1; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
+        .bubble { padding: 1.2rem; border-radius: 10px; max-width: 85%; line-height: 1.7; white-space: pre-wrap; font-size: 0.95rem; }
+        .user { align-self: flex-end; background: var(--accent); color: white; }
+        .ai { align-self: flex-start; background: var(--panel); border: 1px solid var(--border); }
+
+        .input-area { padding: 2rem; }
+        .bar { display: flex; gap: 0.5rem; background: var(--panel); border: 1px solid var(--border); padding: 0.5rem; border-radius: 10px; }
+        input { flex: 1; background: transparent; border: none; color: white; padding: 0.7rem; outline: none; }
+        button { background: white; color: black; border: none; padding: 0 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        
+        iframe { width: 100%; height: 100%; border: none; filter: invert(0.9) hue-rotate(180deg); }
+        .label { padding: 0.7rem 1rem; font-size: 0.6rem; color: #444; border-bottom: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+<div class="app-shell">
+    <div class="chat-view">
+        <header><h1>ALEXANDER OS // v5.2</h1></header>
+        <div id="chat-window"></div>
+        <div class="input-area"><div class="bar">
+            <input type="text" id="in" placeholder="Ask a physics question..." onkeypress="if(event.key==='Enter') run()">
+            <button onclick="run()">SEND</button>
+        </div></div>
+    </div>
+    <div id="pdf-sidebar"><div class="label">MODULE_VIEWER</div><iframe id="pdf-v" src=""></iframe></div>
+</div>
+
+<script>
+    async function run() {
+        const win = document.getElementById('chat-window');
+        const input = document.getElementById('in');
+        const side = document.getElementById('pdf-sidebar');
+        const view = document.getElementById('pdf-v');
+        const q = input.value.trim();
+        if(!q) return;
+
+        win.innerHTML += `<div class="bubble user">${q}</div>`;
+        const ai = document.createElement('div');
+        ai.className = 'bubble ai';
+        ai.textContent = "...";
+        win.appendChild(ai);
+        input.value = "";
+        win.scrollTop = win.scrollHeight;
+
+        const res = await fetch('/ask', {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({prompt: q})
+        });
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let full = "";
+
+        while(true) {
+            const {done, value} = await reader.read();
+            if(done) break;
+            let chunk = decoder.decode(value);
+            
+            if (chunk.includes("[SHOW_PDF:")) {
+                const p = chunk.match(/\[SHOW_PDF:(\d+)\]/)[1];
+                side.classList.add('active');
+                view.src = `/static/physics_full_book.pdf?v=${Date.now()}#page=${p}`;
+                chunk = chunk.replace(/\[SHOW_PDF:\d+\]/, "");
+            }
+            full += chunk;
+            ai.textContent = full;
+            win.scrollTop = win.scrollHeight;
+        }
+        if (window.MathJax) { MathJax.typesetPromise([ai]); }
+    }
+</script>
+</body>
+</html>
