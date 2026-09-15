@@ -1,4 +1,8 @@
 import json
+import threading
+from pathlib import Path
+
+import pdfplumber
 import requests
 from flask import Flask, render_template, request, Response, stream_with_context
 
@@ -8,6 +12,70 @@ app = Flask(__name__)
 OLLAMA_URL = "http://localhost:11434/api/generate"
 STEM_MODEL = "deepseek-r1:1.5b"  # Your reasoning model
 GENERAL_MODEL = "gemma:2b"      # Your general purpose model
+OLLAMA_KEEP_ALIVE = "10m"
+PDF_PATH = Path(__file__).resolve().parent / "static" / "physics_full_book.pdf"
+
+_page_text_cache = {}
+_page_text_lock = threading.Lock()
+_active_model = None
+_active_model_lock = threading.Lock()
+
+
+def get_page_text(page_num):
+    """Extract and cache a 1-based textbook page from the local PDF."""
+    if not isinstance(page_num, int) or page_num < 1:
+        return None
+
+    with _page_text_lock:
+        if page_num in _page_text_cache:
+            return _page_text_cache[page_num]
+
+    try:
+        with pdfplumber.open(PDF_PATH) as pdf:
+            pdf_page_index = page_num - 1
+            if pdf_page_index >= len(pdf.pages):
+                raise IndexError(f"page {page_num} is outside the PDF")
+            text = pdf.pages[pdf_page_index].extract_text() or ""
+            text = "\n".join(line.strip() for line in text.splitlines()).strip()
+    except Exception as exc:
+        app.logger.warning("Textbook extraction failed for page %s: %s", page_num, exc)
+        return None
+
+    with _page_text_lock:
+        _page_text_cache[page_num] = text or None
+    return text or None
+
+
+def prepare_model(model):
+    """Unload the previous Ollama model before switching to a new one."""
+    global _active_model
+    with _active_model_lock:
+        if _active_model == model:
+            return
+        previous_model = _active_model
+        if previous_model:
+            app.logger.info("Swapping %s -> %s", previous_model, model)
+            try:
+                response = requests.post(
+                    OLLAMA_URL,
+                    json={"model": previous_model, "prompt": "", "keep_alive": 0},
+                    timeout=30,
+                )
+                response.raise_for_status()
+            except requests.RequestException as exc:
+                app.logger.warning("Could not unload %s: %s", previous_model, exc)
+        _active_model = model
+
+
+def build_prompt(system_instruction, user_input, page_text):
+    reference = ""
+    if page_text:
+        reference = (
+            "\n\nReference material from the matched textbook page:\n"
+            f"{page_text}\n"
+            "End reference material. Use it when relevant and do not claim it says anything beyond the excerpt."
+        )
+    return f"{system_instruction}{reference}\n\nStudent: {user_input}\nAlexander:"
 
 # Load Textbook Data
 try:
@@ -47,6 +115,7 @@ def ask():
     user_input = user_data.get('prompt', '')
     
     model, page = get_routing_info(user_input)
+    page_text = get_page_text(page) if page else None
     print(f"DEBUG: Routing to {model} | PDF Page Target: {page}")
 
     # --- REINFORCED SYSTEM PROMPT ---
@@ -60,10 +129,12 @@ def ask():
     )
 
     def generate():
+        prepare_model(model)
         payload = {
             "model": model,
-            "prompt": f"{system_instruction}\n\nStudent: {user_input}\nAlexander:",
-            "stream": True
+            "prompt": build_prompt(system_instruction, user_input, page_text),
+            "stream": True,
+            "keep_alive": OLLAMA_KEEP_ALIVE,
         }
         
         # Send PDF signal to HTML instantly

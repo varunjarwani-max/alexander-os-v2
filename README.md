@@ -46,13 +46,13 @@ Flask Kernel (ui.py)
               └── Streamed token response → Frontend
 ```
 
-**Cold-Swap Memory Logic:** Models are not kept simultaneously in RAM. The kernel loads only the active model on demand, swapping it out when the next query requires the other. This prevents OOM crashes on Android phones with limited unified memory.
+**Cold-Swap Memory Logic:** The kernel tracks one active model. When a query selects a different model, it sends Ollama an explicit unload request for the previous model, then starts generation with the newly selected model. This behavior is designed for the local Ollama process; it is not a general Android memory manager.
 
 **Zero Network Dependency:** The inference endpoint is `localhost`. The student's device is the server.
 
 **Privacy by architecture:** No student query, no personal data, and no academic content ever leaves the device. This is not a policy — it is a technical guarantee baked into the system design.
 
-**Textbook-Grounded RAG:** Every answer is checked against the student's own textbook content before being shown, so the tutor explains within the syllabus instead of hallucinating facts that aren't there.
+**Textbook retrieval:** Keyword matches select a textbook page, the backend extracts and caches that page's text, and the excerpt is injected into the Ollama prompt. This is lightweight page retrieval, not a vector database or full-text index, and unmatched questions receive no textbook context.
 
 ---
 
